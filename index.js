@@ -10,23 +10,46 @@ const goods = [
     name: "book",
     price: 20,
     discount: 5,
+    inStock: false,
   },
   {
     name: "PC",
     price: 200,
     discount: 45,
+    inStock: true,
   },
   {
     name: "pencil",
-    price: 10,
+    price: 15,
     discount: 2,
+    inStock: true,
+  },
+  {
+    name: "notebook",
+    price: 100,
+    discount: 2,
+    inStock: true,
+  },
+  {
+    name: "mouse",
+    price: 30,
+    discount: 2,
+    inStock: false,
+  },
+  {
+    name: "keyboard",
+    price: 40,
+    discount: 2,
+    inStock: true,
   },
 ];
 
-const newGoods = goods.map(({ name, price, discount }, index) => {
+const newGoods = goods.map((product) => {
+  const { price, discount } = product;
   //   return name + " " + (price - discount);
+
   return {
-    ...goods[index],
+    ...product,
     finalPrice: price - discount,
   };
 });
@@ -82,4 +105,79 @@ const getUserNames = (users) => {
   return users.map(({ name }) => name);
 };
 
-console.log(getUserNames(students));
+// console.log(getUserNames(students));
+
+// Задача 5:
+// Напиши стрелочную функцию getUsersWithFriend(users, friendName), которая
+// будет принимать два параметра:
+// 1. Первый параметр users — массив объектов пользователей.
+// 2. Второй параметр friendName — имя друга для поиска.
+// Функция должна возвращать массив всех пользователей из массива users, у которых
+// есть друг с именем friendName. Друзья каждого пользователя хранятся в свойстве
+// friends. Если пользователей с таким другом нет, то функция должна вернуть пустой
+// массив.
+// Советы:
+// ● Метод filter() можно использовать для создания нового массива с
+// элементами, которые удовлетворяют определенному условию.
+// ● Используй метод includes() для проверки, содержит ли массив friends имя
+// друга friendName
+
+const users = [
+  {
+    id: 1,
+    name: "Иван Петров",
+    age: 25,
+    email: "ivan.petrov@example.com",
+    isActive: true,
+    friends: ["Анна", "Максим", "Дмитрий"],
+  },
+  {
+    id: 2,
+    name: "Анна Смирнова",
+    age: 30,
+    email: "anna.smirnova@example.com",
+    isActive: false,
+    friends: ["Иван", "Ольга"],
+  },
+  {
+    id: 3,
+    name: "Максим Иванов",
+    age: 22,
+    email: "max.ivanov@example.com",
+    isActive: true,
+    friends: ["Иван", "Дмитрий"],
+  },
+  {
+    id: 4,
+    name: "Ольга Сидорова",
+    age: 28,
+    email: "olga.sidorova@example.com",
+    isActive: false,
+    friends: ["Анна", "Дмитрий"],
+  },
+  {
+    id: 5,
+    name: "Дмитрий Козлов",
+    age: 35,
+    email: "dmitry.kozlov@example.com",
+    isActive: true,
+    friends: ["Иван", "Максим", "Ольга"],
+  },
+];
+
+const getUsersWithFriend = (users, friendName) => {
+  return users.filter(({ friends }) => friends.includes(friendName));
+};
+
+// console.log(getUsersWithFriend(users, "Иван"));
+
+// Задача 6: Фильтрация доступных товаров
+// У вас есть массив товаров, каждый из которых имеет свойства: name, price, inStock
+// (наличие на складе). Напишите функцию, которая возвращает все товары, которые
+// есть в наличии и стоят меньше 50
+
+const inStockGoods = goods.filter(
+  ({ inStock, price }) => inStock && price < 50
+);
+
+// console.log(inStockGoods);
